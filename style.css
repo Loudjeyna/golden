@@ -1,6 +1,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --primary:#2563EB;        /* أزرق أساسي */
+  --primary:#2563EB;        /* أزرق أساسي  sb_publishable_vFSo6qX4xD4wLLSPPTJhLA_KSIslSqu */
   --primary-dark:#1E40AF;   /* أزرق داكن للتدرجات */
   --gold:#93C5FD;           /* لمسة فاتحة */
   --dark:#0F172A;           /* نصوص رئيسية — أزرق ليلي */
@@ -231,3 +231,15 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
 .sk-line{height:16px;border-radius:8px;margin:14px 16px;background:linear-gradient(90deg,#E8F0FE 25%,#F4F8FE 50%,#E8F0FE 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
 .sk-line.short{width:55%}
 @keyframes shimmer{to{background-position:-200% 0}}
+/* ═══ الأيقونات SVG ═══ */
+.cart-btn svg{width:22px;height:22px;color:var(--dark);display:block;margin:auto}
+.ph svg{width:60px;height:60px;color:var(--primary-dark);opacity:.5}
+.cat-ic{display:inline-flex;align-items:center;width:15px;height:15px;margin-inline-end:5px;color:var(--primary)}
+.cat-ic svg{width:15px;height:15px}
+.sq svg{width:42px;height:42px;color:var(--primary-dark)}
+.crumb .cur .cat-ic{color:var(--primary-dark)}
+
+@media(max-width:680px){
+  .ph svg{width:44px;height:44px}
+  .sq svg{width:34px;height:34px}
+}

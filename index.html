@@ -8,7 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="images/logo.png" type="image/webp">  <!-- ★ الفافيكون رجع -->
+<link rel="icon" href="images/logo.png" type="image/png">
+  <!-- ★ الفافيكون رجع -->
 </head>
 <body>
 
@@ -19,8 +20,11 @@
     </a>
     <div class="header-actions">
       <button class="lang-btn" id="lang-btn" onclick="toggleLang()" title="Change language">EN</button>
-      <button class="cart-btn" onclick="toggleCart(true)">🛒<span id="cart-count" class="cart-count" style="display:none">0</span></button>
-    </div>
+    <button class="cart-btn" onclick="toggleCart(true)" aria-label="سلة المشتريات">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/><path d="M3 3.5h2.4l2.3 11.6a1.6 1.6 0 0 0 1.6 1.3h8a1.6 1.6 0 0 0 1.6-1.3L20.6 7.5H6.1"/></svg>
+  <span id="cart-count" class="cart-count" style="display:none">0</span>
+</button>
+</div>
   </div>
 </header>
 
