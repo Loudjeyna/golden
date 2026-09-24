@@ -10,7 +10,7 @@ const I18N = {
   ar: {
     dir:'rtl',
     title:'Golden Store',
-    heroTitle:'هدايا وإكسسوارات تُسعد القلوب 💝',
+    heroTitle:'هدايا وإكسسوارات  💝',
     heroSub:'أحدث المنتجات بين يديك — تصفح وأضيف للسلة',
     heroBtn:'تصفح الأقسام',
     catsTitle:'🗂️ الأقسام',
