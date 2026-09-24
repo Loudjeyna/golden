@@ -85,13 +85,13 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop
 
 /* ═══ شبكة المنتجات ═══ */
 main{max-width:1150px;margin:auto;padding:0 20px 60px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
 
 /* ★ لا translateY على البطاقة — ظل أعمق + تكبير الصورة من الداخل فقط */
 .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .3s;cursor:pointer}
 .card:hover{box-shadow:var(--shadow-h)}
 
-.card-img{height:200px;position:relative;overflow:hidden}
+.card-img{height:240px;position:relative;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
 .card:hover .card-img img{transform:scale(1.08)}
 .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:4rem;background:linear-gradient(135deg,#E8F0FE,#DBEAFE)}
@@ -184,7 +184,7 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
 
   .sec{padding:22px 14px 4px}
   .sec-head h2{font-size:1.1rem}
-  .cat-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;justify-content:center}
   .cat-card .ov b{font-size:.9rem}
   .sub-card .sq{width:84px;height:84px;font-size:2rem}
   .sub-card{width:84px}
