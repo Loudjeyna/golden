@@ -57,7 +57,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop
 .sec-head h2{font-size:1.35rem;color:var(--dark)}
 
 /* ═══ بلوكات الأقسام المصورة ═══ */
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;aspect-ratio:4/3;box-shadow:var(--shadow);transition:box-shadow .3s,border-color .3s;border:3px solid transparent;background:linear-gradient(135deg,#E8F0FE,#DBEAFE)}
 .cat-card:hover{box-shadow:var(--shadow-h)}
 .cat-card.active{border-color:var(--primary);box-shadow:0 0 0 4px rgba(37,99,235,.18)}
