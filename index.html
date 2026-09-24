@@ -4,30 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>متجري — هدايا وإكسسوارات</title>
-<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="style.css">
+<link rel="icon" href="logo.jpg">
 </head>
 <body>
 
 <header>
   <div class="header-in">
-    <a href="index.html"></a>
-    <div class="logo"><div class="logo-mark">🎁</div><span></span></div>
-    <button class="cart-btn" onclick="toggleCart(true)">🛒<span id="cart-count" class="cart-count" style="display:none">0</span></button>
+    <a class="logo" href="index.html" aria-label="العودة إلى الصفحة الرئيسية">
+      <img src="images/logo.jpg" alt="متجري">
+    </a>
+    <div class="header-actions">
+      <button class="lang-btn" id="lang-btn" onclick="toggleLang()" title="Change language">EN</button>
+      <button class="cart-btn" onclick="toggleCart(true)">🛒<span id="cart-count" class="cart-count" style="display:none">0</span></button>
+    </div>
   </div>
 </header>
 
 <section class="hero">
-  <h1>هدايا وإكسسوارات تُسعد القلوب 💝</h1>
-  <p>أحدث المنتجات بين يديك — تصفحي وأضيفي للسلة</p>
-  <button class="go" onclick="document.getElementById('cats-sec').scrollIntoView({behavior:'smooth'})">تصفح الأقسام 🛍️</button>
+  <h1 id="hero-title">هدايا وإكسسوارات تُسعد القلوب 💝</h1>
+  <p id="hero-sub">أحدث المنتجات بين يديك — تصفحي وأضيفي للسلة</p>
+  <button class="go" id="hero-btn" onclick="document.getElementById('cats-sec').scrollIntoView({behavior:'smooth'})">تصفح الأقسام 🛍️</button>
 </section>
 
 <section id="cats-sec" class="sec">
-  <div class="sec-head"><h2>🗂️ الأقسام</h2></div>
+  <div class="sec-head"><h2 id="cats-title">🗂️ الأقسام</h2></div>
   <div id="cat-grid" class="cat-grid"></div>
   <div id="sub-area" style="margin-top:20px"></div>
 </section>
@@ -43,7 +47,7 @@
   </div>
 </main>
 
-<footer>صُنع بـ 💛 — جميع الحقوق محفوظة</footer>
+<footer id="footer-txt">صُنع بـ 💛 — جميع الحقوق محفوظة</footer>
 
 <div id="overlay" class="overlay" onclick="if(event.target===this)closeModal()">
   <div id="modal-body" class="modal"></div>
@@ -51,13 +55,12 @@
 
 <div id="scrim" class="scrim" onclick="toggleCart(false)"></div>
 <aside id="drawer" class="drawer">
-  <div class="d-head"><h3>🛒 سلة المشتريات</h3><button onclick="toggleCart(false)">✕</button></div>
+  <div class="d-head"><h3 id="cart-title">🛒 سلة المشتريات</h3><button onclick="toggleCart(false)">✕</button></div>
   <div id="drawer-body" class="drawer-body"></div>
 </aside>
 
 <div id="toast" class="toast"></div>
 
-<!-- ★ مهم: السكربت في نهاية body وليس في head — حتى يعمل بعد جهوز الصفحة ★ -->
 <script src="script.js"></script>
 </body>
 </html>

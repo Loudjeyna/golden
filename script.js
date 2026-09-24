@@ -5,17 +5,130 @@ const SUPABASE_KEY = 'sb_publishable_vFSo6qX4xD4wLLSPPTJhLA_KSIslSqu';   // ← 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const $ = s => document.querySelector(s);
 
-let products = [], cats = [];
+/* ═══ الترجمة ═══ */
+const I18N = {
+  ar: {
+    dir:'rtl',
+    title:'متجري — هدايا وإكسسوارات',
+    heroTitle:'هدايا وإكسسوارات تُسعد القلوب 💝',
+    heroSub:'أحدث المنتجات بين يديك — تصفحي وأضيفي للسلة',
+    heroBtn:'تصفح الأقسام 🛍️',
+    catsTitle:'🗂️ الأقسام',
+    recentTitle:'✨ وصل حديثاً',
+    allCats:'✨ الكل',
+    groupsIn:'مجموعات داخل',
+    backToCats:'← كل الأقسام',
+    cartTitle:'🛒 سلة المشتريات',
+    cartEmpty:'سلتك فارغة — ابدئي التسوق!',
+    total:'المجموع',
+    checkout:'تأكيد الطلب 🛍️',
+    sending:'جاري الإرسال...',
+    fullName:'الاسم الكامل',
+    phone:'رقم الهاتف',
+    address:'الولاية / العنوان',
+    notes:'ملاحظات (اختياري)',
+    orderSuccess:'تم استلام طلبك بنجاح!',
+    willCall:'سنتصل بك قريباً لتأكيد التفاصيل.',
+    orderArrived:'وصل طلبك إلى المتجر ✓',
+    addedCart:'تمت الإضافة إلى السلة ✓',
+    addToCart:'أضف إلى السلة',
+    soldOut:'نفدت الكمية 😔',
+    outBadge:'نفدت الكمية',
+    newBadge:'جديد ✨',
+    onlyLeft:'⚡ بقي',
+    only:' فقط!',
+    choose:'اختر الخيار:',
+    qty:'الكمية:',
+    noDesc:'لا يوجد وصف لهذا المنتج بعد.',
+    noProducts:'لا توجد منتجات بعد 🌱',
+    noProductsCat:'لا توجد منتجات في هذا القسم بعد 🌱',
+    footer:'صُنع بـ 💛 — جميع الحقوق محفوظة',
+    currency:' دج',
+    from:'من ',
+    sendFail:'تعذر إرسال الطلب، حاولي مجدداً',
+    loadFail:'تعذر تحميل المنتجات',
+    home:'العودة إلى الصفحة الرئيسية'
+  },
+  en: {
+    dir:'ltr',
+    title:'My Store — Gifts & Accessories',
+    heroTitle:'Gifts & Accessories that delight hearts 💝',
+    heroSub:'The latest products at your fingertips — browse & add to cart',
+    heroBtn:'Browse Categories 🛍️',
+    catsTitle:'🗂️ Categories',
+    recentTitle:'✨ New Arrivals',
+    allCats:'✨ All',
+    groupsIn:'Groups in',
+    backToCats:'← All Categories',
+    cartTitle:'🛒 Shopping Cart',
+    cartEmpty:'Your cart is empty — start shopping!',
+    total:'Total',
+    checkout:'Place Order 🛍️',
+    sending:'Sending...',
+    fullName:'Full name',
+    phone:'Phone number',
+    address:'State / Address',
+    notes:'Notes (optional)',
+    orderSuccess:'Your order has been received!',
+    willCall:'We will call you soon to confirm the details.',
+    orderArrived:'Your order reached the store ✓',
+    addedCart:'Added to cart ✓',
+    addToCart:'Add to cart',
+    soldOut:'Out of stock 😔',
+    outBadge:'Out of stock',
+    newBadge:'New ✨',
+    onlyLeft:'⚡ Only',
+    only:' left!',
+    choose:'Choose an option:',
+    qty:'Quantity:',
+    noDesc:'No description for this product yet.',
+    noProducts:'No products yet 🌱',
+    noProductsCat:'No products in this category yet 🌱',
+    footer:'Made with 💛 — All rights reserved',
+    currency:' DZD',
+    from:'from ',
+    sendFail:'Failed to send the order, please try again',
+    loadFail:'Failed to load products',
+    home:'Back to home page'
+  }
+};
+
+let lang = localStorage.getItem('store_lang') || 'ar';
+const t = k => I18N[lang][k] || k;
+
+function applyLang(){
+  const L = I18N[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = L.dir;
+  document.title = L.title;
+  $('#hero-title').textContent = L.heroTitle;
+  $('#hero-sub').textContent   = L.heroSub;
+  $('#hero-btn').textContent   = L.heroBtn;
+  $('#cats-title').textContent = L.catsTitle;
+  $('#footer-txt').textContent = L.footer;
+  $('#cart-title').textContent = L.cartTitle;
+  $('#lang-btn').textContent   = lang === 'ar' ? 'EN' : 'ع';
+  document.querySelector('.logo')?.setAttribute('aria-label', L.home);
+  if (loaded) renderPage();
+}
+function toggleLang(){
+  lang = lang === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('store_lang', lang);
+  applyLang();
+}
+
+/* ═══ الحالة ═══ */
+let products = [], cats = [], loaded = false;
 let view = 'home', catId = null, subId = null;
 let current = null, selVariant = 0, qty = 1;
 let cart = JSON.parse(localStorage.getItem('dz_cart') || '[]');
 
-/* توحيد مسارات الصور: تعمل مع /images/.. و https://.. معاً */
+/* توحيد مسارات الصور */
 const imgURL = u => (u || '').replace(/^\/+/, '');
 const catById = id => cats.find(c => c.id === id);
 const mainCats = () => cats.filter(c => !c.parent_id).sort((a,b)=>a.sort_order-b.sort_order);
 const subsOf = id => cats.filter(c => c.parent_id === id).sort((a,b)=>a.sort_order-b.sort_order);
-const money = n => Number(n).toLocaleString('en-US') + ' دج';
+const money = n => Number(n).toLocaleString('en-US') + t('currency');
 const isNew = p => p.created_at && (Date.now() - new Date(p.created_at)) < 14*864e5;
 const soldOut = p => !p.product_variants?.length || p.product_variants.every(v => v.stock <= 0);
 const catLabel = p => { const c = catById(p.subcategory_id) || catById(p.category_id); return c ? c.icon+' '+c.name : '🛍️'; };
@@ -30,6 +143,7 @@ async function loadAll(){
   if (pRes.error) console.error(pRes.error);
   cats = cRes.data || [];
   products = pRes.data || [];
+  loaded = true;
   renderPage();
 }
 
@@ -51,10 +165,10 @@ function renderSubArea(){
   const subs = subsOf(catId);
   if (!subs.length) { area.innerHTML = ''; return; }
   area.innerHTML = `
-    <div class="sub-title">مجموعات داخل «${catById(catId).name}»:</div>
+    <div class="sub-title">${t('groupsIn')} «${catById(catId).name}»:</div>
     <div class="sub-strip">
       <button class="sub-card ${!subId?'active':''}" onclick="openSub(null)">
-        <div class="sq">✨</div><span>الكل</span>
+        <div class="sq">✨</div><span>${t('allCats')}</span>
       </button>
       ${subs.map(s => `
       <button class="sub-card ${subId===s.id?'active':''}" onclick="openSub(${s.id})">
@@ -68,16 +182,16 @@ function renderSubArea(){
 function renderShop(){
   const head = $('#shop-head'), grid = $('#grid');
   if (view === 'home') {
-    head.innerHTML = `<div class="sec-head"><h2>✨ وصل حديثاً</h2></div>`;
+    head.innerHTML = `<div class="sec-head"><h2>${t('recentTitle')}</h2></div>`;
     const list = products.slice(0, 8);
     grid.innerHTML = list.length ? list.map(cardHTML).join('')
-      : '<div class="empty">لا توجد منتجات بعد 🌱</div>';
+      : `<div class="empty">${t('noProducts')}</div>`;
     return;
   }
   const main = catById(catId), sub = subId ? catById(subId) : null;
   head.innerHTML = `
     <div class="crumb">
-      <button onclick="goHome()">← كل الأقسام</button>
+      <button onclick="goHome()">${t('backToCats')}</button>
       <span class="cur">${main.icon} ${main.name}${sub ? ' / '+sub.name : ''}</span>
     </div>`;
   const subsIds = subsOf(catId).map(s => s.id);
@@ -85,7 +199,7 @@ function renderShop(){
     subId ? p.subcategory_id === subId
           : (p.category_id === catId || subsIds.includes(p.subcategory_id)));
   grid.innerHTML = list.length ? list.map(cardHTML).join('')
-    : '<div class="empty">لا توجد منتجات في هذا القسم بعد 🌱</div>';
+    : `<div class="empty">${t('noProductsCat')}</div>`;
 }
 
 function openCat(id){
@@ -95,8 +209,12 @@ function openCat(id){
   document.getElementById('sub-area').scrollIntoView({behavior:'smooth', block:'center'});
 }
 function openSub(id){ subId=id; renderPage(); }
-function goHome(){ view='home'; catId=null; subId=null; renderPage();
-  document.getElementById('cats-sec').scrollIntoView({behavior:'smooth'}); }
+function goHome(){
+  view='home'; catId=null; subId=null;
+  closeModal(); toggleCart(false);
+  renderPage();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 
 /* ═══ بطاقة المنتج ═══ */
 function cardHTML(p) {
@@ -105,8 +223,8 @@ function cardHTML(p) {
   const min = prices.length ? Math.min(...prices) : 0;
   const out = soldOut(p);
   const badges = [];
-  if (out) badges.push('<span class="badge out">نفدت الكمية</span>');
-  else if (isNew(p)) badges.push('<span class="badge new">جديد ✨</span>');
+  if (out) badges.push(`<span class="badge out">${t('outBadge')}</span>`);
+  else if (isNew(p)) badges.push(`<span class="badge new">${t('newBadge')}</span>`);
   if (p.old_price && min > 0 && min < +p.old_price)
     badges.push('<span class="badge off">-' + Math.round((1 - min/+p.old_price)*100) + '%</span>');
   const img = p.images?.[0];
@@ -124,7 +242,7 @@ function cardHTML(p) {
       <h3>${p.name}</h3>
       <div class="card-price">
         ${p.old_price ? `<del>${money(p.old_price)}</del>` : ''}
-        <b>${prices.length ? (min===Math.max(...prices) ? money(min) : 'من '+money(min)) : ''}</b>
+        <b>${prices.length ? (min===Math.max(...prices) ? money(min) : t('from')+money(min)) : ''}</b>
       </div>
     </div>
   </article>`;
@@ -154,23 +272,23 @@ function renderModal() {
     <div class="m-info">
       <span class="card-cat">${catLabel(p)}</span>
       <h2>${p.name}</h2>
-      <p class="m-desc">${p.description || 'لا يوجد وصف لهذا المنتج بعد.'}</p>
+      <p class="m-desc">${p.description || t('noDesc')}</p>
       ${p.old_price ? `<div class="card-price" style="margin-bottom:12px"><del>${money(p.old_price)}</del></div>` : ''}
       ${vs.length ? `
-        <div class="m-label">اختر الخيار:</div>
+        <div class="m-label">${t('choose')}</div>
         <div class="chips">
           ${vs.map((x,i)=>`<button class="chip ${i===selVariant?'active':''}" ${x.stock<=0?'disabled':''} onclick="pickV(${i})">${x.label} — ${money(x.price)}</button>`).join('')}
         </div>
-        ${v && v.stock > 0 && v.stock <= 2 ? `<div class="low">⚡ بقي ${v.stock} فقط!</div>` : ''}
+        ${v && v.stock > 0 && v.stock <= 2 ? `<div class="low">${t('onlyLeft')} ${v.stock}${t('only')}</div>` : ''}
         ${!out ? `
           <div class="qty-row">
-            <span>الكمية:</span>
+            <span>${t('qty')}</span>
             <div class="stepper">
               <button onclick="setQty(1)">+</button><b id="qty-val">${qty}</b><button onclick="setQty(-1)">−</button>
             </div>
           </div>
-          <button class="cta" onclick="addCart()">أضف إلى السلة — <span id="cta-price">${money(v.price*qty)}</span></button>`
-        : `<button class="cta" disabled>نفدت الكمية 😔</button>`}`
+          <button class="cta" onclick="addCart()">${t('addToCart')} — <span id="cta-price">${money(v.price*qty)}</span></button>`
+        : `<button class="cta" disabled>${t('soldOut')}</button>`}`
       : ''}
     </div>`;
 }
@@ -189,7 +307,7 @@ function addCart(){
   const exist = cart.find(i => i.vid === v.id);
   if (exist) exist.qty = Math.min(exist.qty + qty, v.stock);
   else cart.push({ vid:v.id, name:current.name, label:v.label, price:+v.price, stock:v.stock, qty, cat:catLabel(current) });
-  saveCart(); closeModal(); showToast('تمت الإضافة إلى السلة ✓');
+  saveCart(); closeModal(); showToast(t('addedCart'));
 }
 function saveCart(){ localStorage.setItem('dz_cart', JSON.stringify(cart)); renderCartBadge(); }
 function renderCartBadge(){
@@ -211,7 +329,7 @@ function cQty(ix,d){
 function cDel(ix){ cart.splice(ix,1); saveCart(); renderCart(); }
 
 function renderCart(){
-  if (!cart.length) { $('#drawer-body').innerHTML = '<div class="empty-cart"><div>🛒</div>سلتك فارغة — ابدئي التسوق!</div>'; return; }
+  if (!cart.length) { $('#drawer-body').innerHTML = `<div class="empty-cart"><div>🛒</div>${t('cartEmpty')}</div>`; return; }
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   $('#drawer-body').innerHTML = `
     ${cart.map((i,ix)=>`
@@ -223,20 +341,20 @@ function renderCart(){
         <button class="c-del" onclick="cDel(${ix})">🗑</button>
       </div>
     </div>`).join('')}
-    <div class="c-total"><span>المجموع</span><b>${money(total)}</b></div>
+    <div class="c-total"><span>${t('total')}</span><b>${money(total)}</b></div>
     <form onsubmit="checkout(event)">
-      <input name="name" placeholder="الاسم الكامل" required>
-      <input name="phone" type="tel" placeholder="رقم الهاتف" required>
-      <input name="address" placeholder="الولاية / العنوان" required>
-      <textarea name="notes" rows="2" placeholder="ملاحظات (اختياري)"></textarea>
-      <button id="checkout-btn" class="cta">تأكيد الطلب 🛍️</button>
+      <input name="name" placeholder="${t('fullName')}" required>
+      <input name="phone" type="tel" placeholder="${t('phone')}" required>
+      <input name="address" placeholder="${t('address')}" required>
+      <textarea name="notes" rows="2" placeholder="${t('notes')}"></textarea>
+      <button id="checkout-btn" class="cta">${t('checkout')}</button>
     </form>`;
 }
 
 async function checkout(e){
   e.preventDefault();
   if (!cart.length) return;
-  const btn = $('#checkout-btn'); btn.disabled = true; btn.textContent = 'جاري الإرسال...';
+  const btn = $('#checkout-btn'); btn.disabled = true; btn.textContent = t('sending');
   const fd = new FormData(e.target);
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   const orderId = crypto.randomUUID();
@@ -244,23 +362,24 @@ async function checkout(e){
     id: orderId, customer_name: fd.get('name'), phone: fd.get('phone'),
     address: fd.get('address'), notes: fd.get('notes') || null, total
   });
-  if (error) { console.error(error); showToast('تعذر إرسال الطلب، حاولي مجدداً','err'); btn.disabled=false; btn.textContent='تأكيد الطلب'; return; }
+  if (error) { console.error(error); showToast(t('sendFail'),'err'); btn.disabled=false; btn.textContent=t('checkout'); return; }
   await db.from('order_items').insert(
     cart.map(i => ({ order_id: orderId, product_name: i.name, variant_label: i.label, unit_price: i.price, quantity: i.qty }))
   );
   cart = []; saveCart();
-  $('#drawer-body').innerHTML = '<div class="success"><div>🎉</div><h3>تم استلام طلبك بنجاح!</h3><p>سنتصل بك قريباً لتأكيد التفاصيل.</p></div>';
-  showToast('وصل طلبك إلى المتجر ✓');
+  $('#drawer-body').innerHTML = `<div class="success"><div>🎉</div><h3>${t('orderSuccess')}</h3><p>${t('willCall')}</p></div>`;
+  showToast(t('orderArrived'));
 }
 
 /* ═══ إشعارات ═══ */
 let toastT;
 function showToast(msg, type=''){
-  const t = $('#toast'); t.textContent = msg; t.className = 'toast show ' + type;
-  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 2500);
+  const tt = $('#toast'); tt.textContent = msg; tt.className = 'toast show ' + type;
+  clearTimeout(toastT); toastT = setTimeout(()=>tt.classList.remove('show'), 2500);
 }
 
 /* ═══ التشغيل + البث الحيّ ═══ */
+applyLang();
 loadAll();
 db.channel('store')
   .on('postgres_changes', { event:'*', schema:'public', table:'products' }, loadAll)
