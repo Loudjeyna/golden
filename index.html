@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متجري — هدايا وإكسسوارات</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-in">
+    <div class="logo"><div class="logo-mark">🎁</div><span>متجري</span></div>
+    <button class="cart-btn" onclick="toggleCart(true)">🛒<span id="cart-count" class="cart-count" style="display:none">0</span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>هدايا وإكسسوارات تُسعد القلوب 💝</h1>
+  <p>أحدث المنتجات بين يديك — تصفحي وأضيفي للسلة</p>
+  <button class="go" onclick="document.getElementById('cats-sec').scrollIntoView({behavior:'smooth'})">تصفح الأقسام 🛍️</button>
+</section>
+
+<section id="cats-sec" class="sec">
+  <div class="sec-head"><h2>🗂️ الأقسام</h2></div>
+  <div id="cat-grid" class="cat-grid"></div>
+  <div id="sub-area" style="margin-top:20px"></div>
+</section>
+
+<section class="sec"><div id="shop-head"></div></section>
+
+<main>
+  <div id="grid" class="grid">
+    <div class="card"><div class="card-img ph">⏳</div></div>
+    <div class="card"><div class="card-img ph">⏳</div></div>
+    <div class="card"><div class="card-img ph">⏳</div></div>
+    <div class="card"><div class="card-img ph">⏳</div></div>
+  </div>
+</main>
+
+<footer>صُنع بـ 💛 — جميع الحقوق محفوظة</footer>
+
+<div id="overlay" class="overlay" onclick="if(event.target===this)closeModal()">
+  <div id="modal-body" class="modal"></div>
+</div>
+
+<div id="scrim" class="scrim" onclick="toggleCart(false)"></div>
+<aside id="drawer" class="drawer">
+  <div class="d-head"><h3>🛒 سلة المشتريات</h3><button onclick="toggleCart(false)">✕</button></div>
+  <div id="drawer-body" class="drawer-body"></div>
+</aside>
+
+<div id="toast" class="toast"></div>
+
+<!-- ★ مهم: السكربت في نهاية body وليس في head — حتى يعمل بعد جهوز الصفحة ★ -->
+<script src="script.js"></script>
+</body>
+</html>
