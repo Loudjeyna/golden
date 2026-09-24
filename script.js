@@ -9,7 +9,7 @@ const $ = s => document.querySelector(s);
 const I18N = {
   ar: {
     dir:'rtl',
-    title:'متجري — هدايا وإكسسوارات',
+    title:'Golden Store ',
     heroTitle:'هدايا وإكسسوارات تُسعد القلوب 💝',
     heroSub:'أحدث المنتجات بين يديك — تصفحي وأضيفي للسلة',
     heroBtn:'تصفح الأقسام 🛍️',

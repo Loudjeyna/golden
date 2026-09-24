@@ -225,3 +225,9 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
   .header-actions{gap:8px}
   .lang-btn{height:42px;min-width:42px;padding:0 12px;font-size:.85rem}
 }
+/* ═══ هيكل التحميل: وميض ناعم بلا إيموجي ═══ */
+.sk{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.sk-img{height:200px;background:linear-gradient(90deg,#E8F0FE 25%,#F4F8FE 50%,#E8F0FE 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
+.sk-line{height:16px;border-radius:8px;margin:14px 16px;background:linear-gradient(90deg,#E8F0FE 25%,#F4F8FE 50%,#E8F0FE 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
+.sk-line.short{width:55%}
+@keyframes shimmer{to{background-position:-200% 0}}
