@@ -250,3 +250,17 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
   .ph svg{width:44px;height:44px}
   .sq svg{width:34px;height:34px}
 }
+/* ═══ الهاتف: الناقل يتحول لمسح يدوي ═══ */
+@media(hover:none) and (pointer:coarse){
+  .cat-track{
+    animation:none !important;              /* إيقاف الحركة التلقائية */
+    overflow-x:auto;                        /* تمرير أفقي بالإصبع */
+    -webkit-overflow-scrolling:touch;       /* انسيابية iOS الأصلية */
+    scroll-snap-type:x proximity;           /* انجذاب لطيف للبطاقات */
+    scrollbar-width:none;                   /* إخفاء شريط التمرير */
+    padding-inline:14px;
+  }
+  .cat-track::-webkit-scrollbar{display:none}
+  .cat-card{scroll-snap-align:center}
+  .cat-strip:hover .cat-track{animation:none}  /* إبطال قاعدة إيقاف hover عديمة الجدوى هنا */
+}
