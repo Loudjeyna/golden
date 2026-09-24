@@ -180,13 +180,18 @@ async function loadAll(){
 function renderPage(){ renderCatGrid(); renderSubArea(); renderShop(); renderCartBadge(); }
 
 function renderCatGrid(){
-  $('#cat-grid').innerHTML = mainCats().map(c => `
+  const cards = mainCats().map(c => `
     <div class="cat-card ${view==='cat' && catId===c.id ? 'active':''}" onclick="openCat(${c.id})">
       ${c.image_url
         ? `<img src="${imgURL(c.image_url)}" alt="${c.name}" loading="lazy" onerror="this.style.display='none'"><div class="ph" style="display:none">${icon(c.name)}</div>`
         : `<div class="ph">${icon(c.name)}</div>`}
       <div class="ov"><b>${c.name}</b></div>
     </div>`).join('');
+  /* نكرر البلوكات مرتين — أساس الالتفاف اللانهائي */
+  $('#cat-grid').innerHTML = `
+    <div class="cat-strip">
+      <div class="cat-track">${cards}${cards}</div>
+    </div>`;
 }
 
 function renderSubArea(){

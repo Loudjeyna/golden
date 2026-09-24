@@ -57,16 +57,13 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop
 .sec-head h2{font-size:1.35rem;color:var(--dark)}
 
 /* ═══ بلوكات الأقسام المصورة ═══ */
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
-.cat-card{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;aspect-ratio:4/3;box-shadow:var(--shadow);transition:box-shadow .3s,border-color .3s;border:3px solid transparent;background:linear-gradient(135deg,#E8F0FE,#DBEAFE)}
-.cat-card:hover{box-shadow:var(--shadow-h)}
-.cat-card.active{border-color:var(--primary);box-shadow:0 0 0 4px rgba(37,99,235,.18)}
-.cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
-.cat-card:hover img{transform:scale(1.08)}
-.cat-card .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:3.4rem}
-.cat-card .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,23,42,.75));display:flex;align-items:flex-end;padding:12px}
-.cat-card .ov b{color:#fff;font-size:1.02rem}
-
+/* ═══ شريط الأقسام: ناقل أفقي يلتف تلقائياً ═══ */
+.cat-strip{overflow:hidden;position:relative;padding:4px 0}
+.cat-track{display:flex;gap:16px;width:max-content;animation:marquee 22s linear infinite}
+.cat-strip:hover .cat-track{animation-play-state:paused}   /* يتوقف عند المؤشر — لكي تنقر */
+.cat-card{flex:0 0 auto;width:230px;aspect-ratio:4/3}
+@keyframes marquee{to{transform:translateX(50%)}}
+[dir="ltr"] .cat-track{animation-direction:reverse}
 /* ═══ المجموعات الفرعية ═══ */
 .sub-strip{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 14px}
 .sub-card{flex:0 0 auto;width:98px;text-align:center;cursor:pointer;transition:.25s;background:none;border:none}
@@ -188,7 +185,8 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
   .cat-card .ov b{font-size:.9rem}
   .sub-card .sq{width:84px;height:84px;font-size:2rem}
   .sub-card{width:84px}
-
+  .cat-card{width:160px}
+  .cat-strip{margin-inline:-14px}   /* الشريط يمتد بعرض الشاشة كاملاً */
   main{padding:0 14px 40px}
   .grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .card-img{height:150px}
