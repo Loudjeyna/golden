@@ -1,39 +1,38 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --primary:#2563EB;        /* أزرق أساسي  sb_publishable_vFSo6qX4xD4wLLSPPTJhLA_KSIslSqu */
-  --primary-dark:#1E40AF;   /* أزرق داكن للتدرجات */
-  --gold:#93C5FD;           /* لمسة فاتحة */
-  --dark:#0F172A;           /* نصوص رئيسية — أزرق ليلي */
-  --text:#1E293B;           /* نصوص عادية */
-  --muted:#64748B;          /* نصوص ثانوية */
-  --bg:#F8FAFC;             /* خلفية صفحة — رمادي مزرق فاتح */
-  --line:#E2E8F0;           /* حدود وخطوط */
+  --primary:#2563EB;
+  --primary-dark:#1E40AF;
+  --gold:#93C5FD;
+  --dark:#0F172A;
+  --text:#1E293B;
+  --muted:#64748B;
+  --bg:#F8FAFC;
+  --line:#E2E8F0;
   --danger:#DC2626;
   --success:#059669;
   --radius:18px;
   --shadow:0 4px 20px rgba(15,23,42,.08);
   --shadow-h:0 16px 38px rgba(15,23,42,.16);
 }
-body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden} /* ★ شبكة أمان */
 ::selection{background:var(--gold)}
 button{font-family:inherit;cursor:pointer}
 img{display:block;max-width:100%}
 
-/* ═══ الهيدر ═══ */
+/* ═══ الهيدر — ★ 1400 ═══ */
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.header-in{max-width:1150px;margin:auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-in{max-width:1400px;margin:auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 
-/* الشعار: زر عودة للرئيسية بشكل كبسولة أنيقة */
-/* الشعار: صورة اللوجو داخل كبسولة، نقرها يعيد للرئيسية */
-/* الشعار: صورة مباشرة — بلا كبسولة، نقرها يعيد للرئيسية */
-/* الشعار: قرص دائري مباشر، النقر يعيد للرئيسية */
+/* الشعار: قرص دائري مباشر */
 .logo{display:inline-flex;align-items:center;text-decoration:none;
-      background:none;border:none;padding:0;box-shadow:none}
+      background:none;border:none;padding:0;box-shadow:none;
+      transition:opacity .25s,transform .25s}
 .logo img{height:48px;width:48px;border-radius:50%;
           object-fit:cover;object-position:center;display:block}
-.logo:hover{opacity:.85;transform:scale(1.05);transition:.25s}
+.logo:hover{opacity:.85;transform:scale(1.05)}
 .logo:active{transform:scale(.96)}
-/* زر السلة: بنفس لغة الشعار */
+
+/* زر السلة */
 .cart-btn{position:relative;width:46px;height:46px;border-radius:50%;
           border:1px solid var(--line);background:#fff;font-size:1.15rem;
           box-shadow:0 2px 10px rgba(15,23,42,.06);
@@ -51,19 +50,32 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop
 .hero .go{margin-top:20px;padding:12px 34px;border:none;border-radius:999px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-weight:800;font-size:1rem;box-shadow:0 8px 22px rgba(37,99,235,.4);transition:box-shadow .25s}
 .hero .go:hover{box-shadow:0 14px 30px rgba(37,99,235,.5)}
 
-/* ═══ أقسام الصفحة ═══ */
-.sec{max-width:1150px;margin:auto;padding:30px 20px 6px}
+/* ═══ أقسام الصفحة — ★ 1400 ═══ */
+.sec{max-width:1400px;margin:auto;padding:30px 20px 6px}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .sec-head h2{font-size:1.35rem;color:var(--dark)}
 
-/* ═══ بلوكات الأقسام المصورة ═══ */
-/* ═══ شريط الأقسام: ناقل أفقي يلتف تلقائياً ═══ */
-.cat-strip{overflow:hidden;position:relative;padding:4px 0}
+/* ═══ شريط الأقسام — ★ full-bleed + بطاقات أكبر ═══ */
+.cat-strip{overflow:hidden;position:relative;padding:4px 0;
+           width:100vw;margin-inline:calc(50% - 50vw)}   /* ★ يكسر القفص */
 .cat-track{display:flex;gap:16px;width:max-content;animation:marquee 22s linear infinite}
-.cat-strip:hover .cat-track{animation-play-state:paused}   /* يتوقف عند المؤشر — لكي تنقر */
-.cat-card{flex:0 0 auto;width:230px;aspect-ratio:4/3}
-@keyframes marquee{to{transform:translateX(50%)}}
+.cat-strip:hover .cat-track{animation-play-state:paused}
 [dir="ltr"] .cat-track{animation-direction:reverse}
+@keyframes marquee{to{transform:translateX(50%)}}
+
+.cat-card{flex:0 0 auto;width:280px;aspect-ratio:4/3;position:relative;   /* ★ 280 */
+          border-radius:20px;overflow:hidden;cursor:pointer;
+          border:3px solid transparent;background:linear-gradient(135deg,#E8F0FE,#DBEAFE);
+          box-shadow:var(--shadow);transition:box-shadow .3s,border-color .3s}
+.cat-card:hover{box-shadow:var(--shadow-h)}
+.cat-card.active{border-color:var(--primary);box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+.cat-card img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .45s}
+.cat-card:hover img{transform:scale(1.08)}
+.cat-card .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:3.4rem}
+.cat-card .ph svg{width:64px;height:64px}
+.cat-card .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(15,23,42,.75));display:flex;align-items:flex-end;padding:12px}
+.cat-card .ov b{color:#fff;font-size:1.02rem}
+
 /* ═══ المجموعات الفرعية ═══ */
 .sub-strip{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 14px}
 .sub-card{flex:0 0 auto;width:98px;text-align:center;cursor:pointer;transition:.25s;background:none;border:none}
@@ -80,14 +92,12 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop
 .crumb button:hover{border-color:var(--primary)}
 .crumb .cur{color:var(--primary-dark);font-weight:800}
 
-/* ═══ شبكة المنتجات ═══ */
-main{max-width:1150px;margin:auto;padding:0 20px 60px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+/* ═══ شبكة المنتجات — ★ 1400 + 320 ═══ */
+main{max-width:1400px;margin:auto;padding:0 20px 60px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
 
-/* ★ لا translateY على البطاقة — ظل أعمق + تكبير الصورة من الداخل فقط */
 .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .3s;cursor:pointer}
 .card:hover{box-shadow:var(--shadow-h)}
-
 .card-img{height:240px;position:relative;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
 .card:hover .card-img img{transform:scale(1.08)}
@@ -168,11 +178,41 @@ form input:focus,form textarea:focus{outline:none;border-color:var(--primary);bo
 footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
 @keyframes fade{from{opacity:0}}
 @keyframes up{from{transform:translateY(30px);opacity:0}}
+
+/* ═══ زر اللغة + أزرار الهيدر ═══ */
+.header-actions{display:flex;align-items:center;gap:10px}
+.lang-btn{height:46px;min-width:48px;border-radius:999px;border:1px solid var(--line);
+          background:#fff;font-weight:800;font-size:.95rem;color:var(--primary-dark);
+          padding:0 14px;box-shadow:0 2px 10px rgba(15,23,42,.06);
+          transition:border-color .25s,box-shadow .25s}
+.lang-btn:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(37,99,235,.18)}
+
+/* السلة تنزلق من اليمين في النسخة الإنجليزية */
+[dir="ltr"] .drawer{left:auto;right:0;transform:translateX(105%)}
+[dir="ltr"] .drawer.open{transform:none}
+
+/* ═══ هيكل التحميل ═══ */
+.sk{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.sk-img{height:200px;background:linear-gradient(90deg,#E8F0FE 25%,#F4F8FE 50%,#E8F0FE 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
+.sk-line{height:16px;border-radius:8px;margin:14px 16px;background:linear-gradient(90deg,#E8F0FE 25%,#F4F8FE 50%,#E8F0FE 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
+.sk-line.short{width:55%}
+@keyframes shimmer{to{background-position:-200% 0}}
+
+/* ═══ الأيقونات SVG ═══ */
+.cart-btn svg{width:22px;height:22px;color:var(--dark);display:block;margin:auto}
+.ph svg{width:60px;height:60px;color:var(--primary-dark);opacity:.5}
+.cat-ic{display:inline-flex;align-items:center;width:15px;height:15px;margin-inline-end:5px;color:var(--primary)}
+.cat-ic svg{width:15px;height:15px}
+.sq svg{width:42px;height:42px;color:var(--primary-dark)}
+.crumb .cur .cat-ic{color:var(--primary-dark)}
+
+/* ═══ الموبايل — كتلة واحدة موحدة ═══ */
 @media(max-width:680px){
   .header-in{padding:8px 14px}
-  .logo{font-size:1rem;padding:4px 14px 4px 6px}
-  .logo-mark{width:34px;height:34px;font-size:1rem}
-  .cart-btn{width:42px;height:42px;font-size:1.05rem}
+  .logo img{height:36px;width:36px}
+  .cart-btn{width:42px;height:42px}
+  .header-actions{gap:8px}
+  .lang-btn{height:42px;min-width:42px;padding:0 12px;font-size:.85rem}
 
   .hero{padding:36px 16px 26px}
   .hero h1{font-size:1.4rem}
@@ -181,12 +221,14 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
 
   .sec{padding:22px 14px 4px}
   .sec-head h2{font-size:1.1rem}
-  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;justify-content:center}
+
+  /* ★ لا حاجة لمسافة سالبة — 100vw تتكفل */
+  .cat-card{width:160px}
   .cat-card .ov b{font-size:.9rem}
+
   .sub-card .sq{width:84px;height:84px;font-size:2rem}
   .sub-card{width:84px}
-  .cat-card{width:160px}
-  .cat-strip{margin-inline:-14px}   /* الشريط يمتد بعرض الشاشة كاملاً */
+
   main{padding:0 14px 40px}
   .grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .card-img{height:150px}
@@ -204,40 +246,7 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
   .stepper button{width:36px;height:36px}
   .c-qty button{width:30px;height:30px}
   form input,form textarea{font-size:16px}
-    .logo{padding:4px 10px}
-  .logo img{height:36px}
-}
-/* ═══ زر اللغة ═══ */
-.header-actions{display:flex;align-items:center;gap:10px}
-.lang-btn{height:46px;min-width:48px;border-radius:999px;border:1px solid var(--line);
-          background:#fff;font-weight:800;font-size:.95rem;color:var(--primary-dark);
-          padding:0 14px;box-shadow:0 2px 10px rgba(15,23,42,.06);
-          transition:border-color .25s,box-shadow .25s}
-.lang-btn:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(37,99,235,.18)}
 
-/* السلة تنزلق من اليمين في النسخة الإنجليزية */
-[dir="ltr"] .drawer{left:auto;right:0;transform:translateX(105%)}
-[dir="ltr"] .drawer.open{transform:none}
-
-@media(max-width:680px){
-  .header-actions{gap:8px}
-  .lang-btn{height:42px;min-width:42px;padding:0 12px;font-size:.85rem}
-}
-/* ═══ هيكل التحميل: وميض ناعم بلا إيموجي ═══ */
-.sk{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.sk-img{height:200px;background:linear-gradient(90deg,#E8F0FE 25%,#F4F8FE 50%,#E8F0FE 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
-.sk-line{height:16px;border-radius:8px;margin:14px 16px;background:linear-gradient(90deg,#E8F0FE 25%,#F4F8FE 50%,#E8F0FE 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
-.sk-line.short{width:55%}
-@keyframes shimmer{to{background-position:-200% 0}}
-/* ═══ الأيقونات SVG ═══ */
-.cart-btn svg{width:22px;height:22px;color:var(--dark);display:block;margin:auto}
-.ph svg{width:60px;height:60px;color:var(--primary-dark);opacity:.5}
-.cat-ic{display:inline-flex;align-items:center;width:15px;height:15px;margin-inline-end:5px;color:var(--primary)}
-.cat-ic svg{width:15px;height:15px}
-.sq svg{width:42px;height:42px;color:var(--primary-dark)}
-.crumb .cur .cat-ic{color:var(--primary-dark)}
-
-@media(max-width:680px){
   .ph svg{width:44px;height:44px}
   .sq svg{width:34px;height:34px}
 }
