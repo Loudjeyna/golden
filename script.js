@@ -51,6 +51,7 @@ const I18N = {
     heroTitle:'أهلاً بك في Golden Store 💝',
 heroSub:'هدايا وإكسسوارات — أحدث المنتجات بين يديك',
 footer:'Golden Store © — جميع الحقوق محفوظة',
+heroServicesBtn:'خدماتنا ',
   },
   en: {
     dir:'ltr',
@@ -96,6 +97,7 @@ footer:'Golden Store © — جميع الحقوق محفوظة',
     heroTitle:'Welcome to Golden Store 💝',
 heroSub:'Gifts & accessories — the latest products at your fingertips',
 footer:'Golden Store © — All rights reserved',
+heroServicesBtn:'Our Services ',
   }
 };
 
@@ -144,6 +146,7 @@ function applyLang(){
   $('#lang-btn').textContent   = lang === 'ar' ? 'EN' : 'ع';
   document.querySelector('.logo')?.setAttribute('aria-label', L.home);
   if (loaded) renderPage();
+   $('#hero-services-btn').textContent = t('heroServicesBtn');
 }
 function toggleLang(){
   lang = lang === 'ar' ? 'en' : 'ar';
