@@ -249,4 +249,17 @@ footer{text-align:center;padding:26px;color:var(--muted);font-size:.85rem;border
 
   .ph svg{width:44px;height:44px}
   .sq svg{width:34px;height:34px}
+}/* ═══ الهاتف: الناقل يتحول لمسح يدوي ═══ */
+@media(hover:none) and (pointer:coarse){
+  .cat-strip{
+    overflow-x:auto;                     /* ★ القافس الأب هو من يتمرر */
+    -webkit-overflow-scrolling:touch;    /* انسيابية iOS */
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;                /* إخفاء شريط التمرير */
+  }
+  .cat-strip::-webkit-scrollbar{display:none}
+  .cat-track{
+    animation:none !important;           /* إيقاف الدوران التلقائي */
+  }
+  .cat-card{scroll-snap-align:center}
 }
