@@ -47,7 +47,10 @@ const I18N = {
     from:'من ',
     sendFail:'تعذر إرسال الطلب، حاول مجدداً',
     loadFail:'تعذر تحميل المنتجات',
-    home:'العودة إلى الصفحة الرئيسية'
+    home:'العودة إلى الصفحة الرئيسية',
+    heroTitle:'أهلاً بك في Golden Store 💝',
+heroSub:'هدايا وإكسسوارات — أحدث المنتجات بين يديك',
+footer:'Golden Store © — جميع الحقوق محفوظة',
   },
   en: {
     dir:'ltr',
@@ -89,7 +92,10 @@ const I18N = {
     from:'from ',
     sendFail:'Failed to send the order, please try again',
     loadFail:'Failed to load products',
-    home:'Back to home page'
+    home:'Back to home page',
+    heroTitle:'Welcome to Golden Store 💝',
+heroSub:'Gifts & accessories — the latest products at your fingertips',
+footer:'Golden Store © — All rights reserved',
   }
 };
 
